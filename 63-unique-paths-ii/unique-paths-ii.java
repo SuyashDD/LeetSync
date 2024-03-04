@@ -1,4 +1,5 @@
 class Solution {
+    // Memoization
     public int calc(int rows, int cols, int[][] obstacleGrid ,int[][] dp) {
         // base condition
         System.out.print("r -> " + rows + " c -> "+ cols + " ");
@@ -25,10 +26,12 @@ class Solution {
         int cols = obstacleGrid[0].length;
         if(obstacleGrid[0][0] == 1) return 0;
 
+        // Memoization
         // int[][] dp = new int[rows][cols];
         // for(int[] a : dp) Arrays.fill(a , -1);
-
         // return calc(rows - 1, cols - 1, obstacleGrid , dp);
+
+        // Tabulation with space optimization
         int[] prev = new int[cols];
         prev[0] = 1;
         for(int i = 1 ; i < cols; i++) {
@@ -39,8 +42,6 @@ class Solution {
                 prev[i] = 0;
             }
         }
-        // System.out.print(" Prev -> ");
-        // for(int i : prev) System.out.print(" " + i + " ");
 
         for(int row = 1; row < rows; row++){
             int[] curr = new int[cols];
@@ -59,16 +60,8 @@ class Solution {
                     curr[col] = curr[col - 1] + prev[col];
                 }
             }
-            
-            System.out.print(" Prev -> ");
-            for(int i : prev) System.out.print(" " + i + " ");
-            System.out.print(" Curr -> ");
-            for(int i : curr) System.out.print(" " + i + " ");
-
-            System.out.print("\n");
             prev = curr;
         }
         return prev[prev.length - 1];
-
     }
 }
