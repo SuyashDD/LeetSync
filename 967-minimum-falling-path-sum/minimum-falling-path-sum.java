@@ -36,7 +36,7 @@ class Solution {
         return res;
         */
 
-        // Tabulation
+        /* Tabulation
         int rows = matrix.length;
         int cols = matrix[0].length;
         int[][] dp = new int[matrix.length][matrix[0].length];
@@ -64,6 +64,60 @@ class Solution {
             res = Math.min(res , dp[rows - 1][i]);
         }
         return res;
+        */
+
+        /* Tabulation with space optimization*/
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int[] prev = new int[cols];
+        // prev = matrix[0];
+
+        for(int i = 0 ; i < cols ; i++) {
+            prev[i] = matrix[0][i];
+        }
+
+        for(int r = 1; r < rows ; r++) {
+            int[] curr = new int[cols];
+            curr[0] = matrix[r][0] + Math.min(prev[0] , prev[1]);
+            for(int c = 1; c < cols; c++) {
+                int t1 = prev[c-1];
+                int t2 = prev[c];
+                int t3 = Integer.MAX_VALUE;
+                if(c+1 < cols) {
+                    t3 = prev[c+1];
+                }
+                curr[c] = matrix[r][c] + Math.min(t1 , Math.min(t2,t3));
+            }
+            prev = curr;
+        }
+        int res = Integer.MAX_VALUE;
+        for(int c = 0 ; c < cols ; c++) {
+            res = Math.min(res , prev[c] );
+        }
+        return res;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }
