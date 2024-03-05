@@ -1,4 +1,6 @@
 class Solution {
+    // Memoization
+    /*
     public int calc(int rows , int cols , int[][] mat , int[][] dp) {
         // base
         if(rows < 0 || cols < 0 || cols >= mat[0].length) return Integer.MAX_VALUE;
@@ -17,7 +19,10 @@ class Solution {
         dp[rows][cols] = res;
         return res;
     }
+    */
+
     public int minFallingPathSum(int[][] matrix) {
+        /* Memoization -
         int rows = matrix.length;
         int cols = matrix[0].length;
         int[][] dp = new int[matrix.length][matrix[0].length];
@@ -29,6 +34,37 @@ class Solution {
             res = Math.min(res , temp);
         }
         return res;
+        */
+
+        // Tabulation
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int[][] dp = new int[matrix.length][matrix[0].length];
+        for(int i = 0 ; i < cols ; i++) {
+            dp[0][i] = matrix[0][i];
+        }
+
+        for(int r = 1 ; r < rows ; r++) {
+            for(int c = 0 ; c < cols ; c++) {
+                int t1 = Integer.MAX_VALUE;
+                int t3 = Integer.MAX_VALUE;
+                if(c-1 >= 0) {
+                    t1 = dp[r-1][c-1] ;
+                }
+                if(c+1 < cols) {
+                    t3 = dp[r-1][c+1];
+                }
+                int t2 = dp[r-1][c];
+                dp[r][c] = matrix[r][c] + Math.min(t1 , Math.min(t2,t3));
+
+            }
+        }
+        int res = Integer.MAX_VALUE;
+        for(int i = 0 ; i < cols ; i++) {
+            res = Math.min(res , dp[rows - 1][i]);
+        }
+        return res;
+
 
     }
 }
