@@ -66,7 +66,7 @@ class Solution {
         return res;
         */
 
-        /* Tabulation with space optimization*/
+        /* Tabulation with space optimization */
         int rows = matrix.length;
         int cols = matrix[0].length;
         int[] prev = new int[cols];
@@ -95,30 +95,5 @@ class Solution {
             res = Math.min(res , prev[c] );
         }
         return res;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
